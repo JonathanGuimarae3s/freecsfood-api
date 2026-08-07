@@ -1,6 +1,7 @@
 package br.com.jpslg.freecsfood.api.controller;
 
 import br.com.jpslg.freecsfood.api.assembler.ApiMapper;
+import br.com.jpslg.freecsfood.api.model.dto.FormaPagamentoResponse;
 import br.com.jpslg.freecsfood.api.model.dto.PageResponse;
 import br.com.jpslg.freecsfood.api.model.dto.RestauranteResponse;
 import br.com.jpslg.freecsfood.api.model.dto.request.RestauranteRequest;
@@ -21,11 +22,22 @@ import java.net.URI;
 public class RestauranteController {
     private final CadastroRestauranteService service;
 
-    public RestauranteController(CadastroRestauranteService service) { this.service = service; }
+    public RestauranteController(CadastroRestauranteService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public PageResponse<RestauranteResponse> listar(@PageableDefault(size = 20, sort = "nome") Pageable pageable) {
         return PageResponse.from(service.listar(pageable).map(ApiMapper::toResponse));
+    }
+
+    @GetMapping("/{idRestaurante}/formaPagamento")
+    public PageResponse<FormaPagamentoResponse> listarFormaPagamento(
+            @PageableDefault(size = 20) Pageable pageable,
+            @PathVariable Long idRestaurante
+    ) {
+        return PageResponse.from(service.listarFormaPagamento(pageable, idRestaurante)
+                .map(ApiMapper::toResponse));
     }
 
     @GetMapping("/{id}")

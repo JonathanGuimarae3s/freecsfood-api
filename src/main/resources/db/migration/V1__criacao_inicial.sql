@@ -161,6 +161,7 @@ CREATE TABLE restaurante_forma_pagamento (
         FOREIGN KEY (forma_pagamento_id) REFERENCES forma_pagamento (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Dados de referência da aplicação
 INSERT INTO permissao (id, nome, descricao) VALUES
     (1, 'CONSULTAR_RESTAURANTES', 'Permite consultar restaurantes'),
     (2, 'EDITAR_RESTAURANTES', 'Permite editar restaurantes'),
@@ -176,6 +177,7 @@ INSERT INTO grupo_permissao (grupo_id, permissao_id) VALUES
     (1, 3),
     (1, 4);
 
+-- Dados de demonstração para estudo e testes manuais
 INSERT INTO estado (id, nome) VALUES
     (1, 'São Paulo'),
     (2, 'Minas Gerais'),

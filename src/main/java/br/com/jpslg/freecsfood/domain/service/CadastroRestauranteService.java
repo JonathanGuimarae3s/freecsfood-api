@@ -2,6 +2,7 @@ package br.com.jpslg.freecsfood.domain.service;
 
 import br.com.jpslg.freecsfood.domain.exception.EntidadeEmUsoException;
 import br.com.jpslg.freecsfood.domain.exception.RestauranteNaoEncontradaException;
+import br.com.jpslg.freecsfood.domain.model.FormaPagamento;
 import br.com.jpslg.freecsfood.domain.model.Restaurante;
 import br.com.jpslg.freecsfood.domain.repository.RestauranteRepositorio;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,7 +17,8 @@ public class CadastroRestauranteService {
     private final CadastroCozinhaService cadastroCozinhaService;
 
     public CadastroRestauranteService(RestauranteRepositorio restauranteRepositorio,
-                                      CadastroCozinhaService cadastroCozinhaService) {
+                                      CadastroCozinhaService cadastroCozinhaService,
+                                      CadastroFormaPagamentoService cadastroFormaPagamentoService) {
         this.restauranteRepositorio = restauranteRepositorio;
         this.cadastroCozinhaService = cadastroCozinhaService;
     }
@@ -46,5 +48,9 @@ public class CadastroRestauranteService {
     @Transactional(readOnly = true)
     public Restaurante buscarOuFalhar(Long id) {
         return restauranteRepositorio.findById(id).orElseThrow(() -> new RestauranteNaoEncontradaException(id));
+    }
+
+    public Page<FormaPagamento> listarFormaPagamento(Pageable pageable, Long idRestaurante) {
+        return restauranteRepositorio.listarFormaPagamentoPorRestaurante(pageable, idRestaurante);
     }
 }

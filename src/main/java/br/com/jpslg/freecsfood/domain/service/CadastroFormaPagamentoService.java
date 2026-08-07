@@ -1,8 +1,10 @@
 package br.com.jpslg.freecsfood.domain.service;
 
+import br.com.jpslg.freecsfood.domain.exception.EntidadeEmUsoException;
 import br.com.jpslg.freecsfood.domain.exception.FormaPagamentoNaoEncontradaException;
 import br.com.jpslg.freecsfood.domain.model.FormaPagamento;
 import br.com.jpslg.freecsfood.domain.repository.FormaPagamentoRepositorio;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,15 @@ public class CadastroFormaPagamentoService {
     public void excluir(Long id) {
         FormaPagamento formaPagamento = buscarOuFalhar(id);
 
-        formaPagamentoRepositorio.delete(formaPagamento);
-        formaPagamentoRepositorio.flush();
+        try {
+            formaPagamentoRepositorio.delete(formaPagamento);
+            formaPagamentoRepositorio.flush();
+        } catch (DataIntegrityViolationException ex) {
+            throw new EntidadeEmUsoException("Forma de Pagamento de código %d está em uso".formatted(id));
+
+        }
+
     }
+
+
 }

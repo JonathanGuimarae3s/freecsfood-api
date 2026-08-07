@@ -433,15 +433,6 @@ Encerre o processo que está usando a porta ou execute em outra porta:
 
 Inicie o Docker e execute os testes novamente. Os demais testes não dependem dele.
 
-## Cuidados de segurança
-
-- Nunca versione senhas, arquivos `.env` ou `application-local.properties`.
-- Use credenciais diferentes para banco, administrador e ambientes distintos.
-- Rotacione imediatamente qualquer segredo que tenha sido exposto no histórico Git.
-- Restrinja `CORS_ALLOWED_ORIGINS` aos clientes autorizados.
-- Use HTTPS e um mecanismo de autenticação apropriado antes de publicar a API.
-- Não habilite o perfil `dev` em produção.
-
 ## Escopo atual
 
 Este é um projeto pessoal a fim de demonstrar conceitos de arquitetura e desenvolvimento de software. O contrato pode evoluir enquanto novos conceitos são estudados. No estado atual, os endpoints públicos estão limitados a cozinhas, estados, cidades e restaurantes; em breve serão adicionados endpoints para pedidos, produtos, usuários, grupos, permissões ou formas de pagamento.
